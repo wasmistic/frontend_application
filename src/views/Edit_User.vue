@@ -12,7 +12,7 @@
       <img :src="form.image" alt="">
      <div class="btn_box">
       <router-link style="float:left" tag="button" to="/">Back</router-link>
-      <button style="float:right" @click="send_form">Submit</button>
+      <button style="float:right" >Submit</button>
      </div>
      </form>
   
