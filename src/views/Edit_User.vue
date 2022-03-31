@@ -1,40 +1,21 @@
 <template>
   <div class="home">
-     <!-- {{$store.state.form}} -->
-   <table>
-     <thead>
-       <tr>
-         <th> Title</th>
-          <th>Category</th>
-           <th>Description</th>
-           <th>Image Url</th>
-           <th></th>
-       </tr>
-     </thead>
-     <tbody>
-       <tr>
-         <td>
-           <input type="text" v-model="form.a">
-         </td>
-         <td>
-           <input type="text" v-model="form.b">
-         </td>
-         <td>
-           <input type="text" v-model="form.c">
-         </td>
-         <td>
-          <label for="image" v-if="!form.image">
-            <input type="file" name="image" @change="onChange">
-        </label>
-        <img  v-else :src="form.image" alt="">
-         </td>
-         <td>
-           <router-link tag="a" :to="{path:`/user/${index}`}">view details</router-link>
-         </td>
-       </tr>
-     </tbody>
-   </table>
-  <button @click=" send_form">send</button>
+     <!-- {{update_data}} -->
+     <form @submit.prevent="" >
+       <label for="name">Title</label>
+       <input v-model="form.a" type="text">
+        <label for="name">Category</label>
+       <input v-model="form.b" type="text">
+        <label for="name">Description</label>
+       <input v-model="form.c" type="text">
+       <label for="name">Image</label>
+      <img :src="form.image" alt="">
+     <div class="btn_box">
+      <router-link style="float:left" tag="button" to="/">Back</router-link>
+      <button style="float:right" @click="send_form">Submit</button>
+     </div>
+     </form>
+  
   </div>
 </template>
 
@@ -60,7 +41,7 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['fetch_user']),
+    ...mapGetters(['update_data']),
   },
   methods:{
     ...mapActions(['get_user_form']),
@@ -68,6 +49,12 @@ export default {
       this.get_user_form(this.form)
       // this.form=''
       alert('click view detail button for all list')
+    },
+    fill_form(){
+      this.form.a=this.update_data.a
+      this.form.b=this.update_data.b
+      this.form.c=this.update_data.c
+      this.form.image=this.update_data.image
     },
       onChange(e) {
         var files = e.target.files;
@@ -90,26 +77,52 @@ export default {
       removeFile() {
         this.image = '';
       },
+  },
+  created(){
+    this.fill_form()
   }
 }
 </script>
 <style>
-table{
+.btn_box{
+  /* */
   width: 100%;
-  margin-inline: auto;
-  border: 1px solid #ccc;
+  
 }
-table.tr{
-  width: calc(100%/4);
-  border-bottom: 1px solid #ccc;
+form{
+  min-width: 30%;
+  max-width: 100%;
+  display: flex;
+  align-items:flex-start;
+  justify-content:center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border:1px solid #ccc;
+  overflow: hidden;
+  padding: 2rem;
+  padding-left:1rem;
 }
-thead.tr{
-  border-bottom: 1px solid #ccc;
+input{
+  width: 100%;
+  padding:.6rem;
+  outline: none;
+  border-radius:4px;
+  border:1px solid #ccc;
+  margin:.5rem 0rem;
 }
+label{
+  font-weight:500;
+  font-size:.8rem;
+}
+
 img{
   width: 80px;
   height: 80px;
   border-radius:5px;
+  margin-top:.8rem;
 }
 button{
   padding:.7rem  1.2rem;

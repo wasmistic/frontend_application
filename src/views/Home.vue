@@ -1,7 +1,23 @@
 <template>
   <div class="home">
-     <!-- {{$store.state.form}} -->
-   <table>
+    <form @submit.prevent="" >
+       <label for="name">Title</label>
+       <input v-model="form.a" type="text">
+        <label for="name">Category</label>
+       <input v-model="form.b" type="text">
+        <label for="name">Description</label>
+       <input v-model="form.c" type="text">
+       <label for="image">Image</label>
+      <label for="image" v-if="!form.image">
+            <input type="file" name="image" @change="onChange">
+        </label>
+        <img  v-else :src="form.image" alt="">
+      <div class="btn_wrap">
+        <router-link tag="a" :to="{path:`/user/${index}`}">view details</router-link>
+         <button @click="send_form">Submit</button>
+      </div>
+     </form>
+   <!-- <table>
      <thead>
        <tr>
          <th> Title</th>
@@ -29,12 +45,12 @@
         <img  v-else :src="form.image" alt="">
          </td>
          <td>
-           <router-link tag="a" :to="{path:`/user/${index}`}">view details</router-link>
+           
          </td>
        </tr>
      </tbody>
-   </table>
-  <button @click=" send_form">send</button>
+   </table> -->
+  <!-- <button @click="">send</button> -->
   </div>
 </template>
 
@@ -94,17 +110,40 @@ export default {
 }
 </script>
 <style>
-table{
+.btn_wrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  margin-inline: auto;
-  border: 1px solid #ccc;
 }
-table.tr{
-  width: calc(100%/4);
-  border-bottom: 1px solid #ccc;
+form{
+  min-width: 30%;
+  max-width: 100%;
+  border-radius:10px;
+  display: flex;
+  align-items:flex-start;
+  justify-content:center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border:1px solid #ccc;
+  overflow: hidden;
+  padding: 2rem;
+  padding-left:1rem;
 }
-thead.tr{
-  border-bottom: 1px solid #ccc;
+input{
+  width: 100%;
+  padding:.6rem;
+  outline: none;
+  border-radius:4px;
+  border:1px solid #ccc;
+  margin:.5rem 0rem;
+}
+label{
+  font-weight:500;
+  font-size:.8rem;
 }
 img{
   width: 80px;

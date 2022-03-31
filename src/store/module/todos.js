@@ -6,14 +6,17 @@
       {
       },
     ],
+    update_form:{},
   }
   const getters={
     fetch_user:(state)=>state.form,
+    update_data:(state)=>state.update_form,
   }
   const mutations={
     SET_USER:(state,payload)=>state.form.push(payload),
     DELETE:(state,payload)=>state.form.splice(payload,1),
-    EDIT:(state,payload)=>state.form.splice(payload,1),
+    EDIT:(state,payload)=>state.update_form=payload,
+    UPDATE:(state,payload)=>state.form.splice(payload,1,payload)
   }
   const actions={
     get_user_form(context,payload){
